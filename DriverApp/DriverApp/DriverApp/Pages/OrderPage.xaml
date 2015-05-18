@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverApp.Pages.OrderPage">
+  <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="White">
+    <StackLayout Orientation="Vertical" Padding="10" Spacing="10">
+
+      <Label Text="ORDER DETAILS" FontSize="18"></Label>
+
+      <Grid x:Name="orderList">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition ></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+      </Grid>
+
+      <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand"></BoxView>
+
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+        <Label Text="subtotal" TextColor="Black" HorizontalOptions="FillAndExpand"></Label>
+        <Label x:Name="lblSubTotal" Text="$66" TextColor="Red" HorizontalOptions="End"></Label>
+      </StackLayout>
+      <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand"></BoxView>
+
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+        <Label Text="tax" TextColor="Black" HorizontalOptions="FillAndExpand"></Label>
+        <Label x:Name="lblTax" Text="$4.3" TextColor="Red" HorizontalOptions="End"></Label>
+      </StackLayout>
+      <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand"></BoxView>
+
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+        <Label Text="total" TextColor="Black" HorizontalOptions="FillAndExpand"></Label>
+        <Label x:Name="lblTotal" Text="$50" TextColor="Red" HorizontalOptions="End"></Label>
+      </StackLayout>
+      <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand"></BoxView>
+
+      <ContentView Padding="20" HorizontalOptions="Center" VerticalOptions="Center">
+        <Button Text="Delivery Address" Clicked="ViewLocation_Clicked" WidthRequest="150" BackgroundColor="Red" TextColor="White"></Button>
+      </ContentView>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

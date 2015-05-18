@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DriverApp.Controls;assembly=DriverApp"
+             x:Class="DriverApp.Pages.RoutePage">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="0.7*"/>
+      <RowDefinition Height="0.3*"/>
+    </Grid.RowDefinitions>
+
+    <controls:ExtendedMap x:Name="map" VerticalOptions="Fill" HorizontalOptions="Fill"></controls:ExtendedMap>
+
+    <BoxView BackgroundColor="Red" Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill"></BoxView>
+
+    <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Start" Spacing="10">
+      <StackLayout  Orientation="Horizontal" Padding="10"  >
+        <Label Text="{Binding User.Prefix, StringFormat=' {0} '}" VerticalOptions="Center" TextColor="White" FontSize="20"/>
+        <Label Text="{Binding User.DisplayName}" VerticalOptions="Center" TextColor="White" FontSize="20"/>        
+      </StackLayout>
+
+      <Button Text="Call" TextColor="White" WidthRequest="130" Clicked="Call_Clicked"></Button>
+    </StackLayout>    
+  </Grid>
+</ContentPage>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverApp.Pages.MealsPage">
+  
+    <ListView x:Name="listView" ItemsSource="{Binding Menu}"  VerticalOptions="Fill" HorizontalOptions="Fill" RowHeight="350">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <Grid  Padding="0" VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="{Binding Image}" VerticalOptions="Fill" HorizontalOptions="Fill" Aspect="Fill"/>
+
+                <Grid  Padding="10" BackgroundColor="Black" Opacity="0.7" VerticalOptions="End" HorizontalOptions="Fill">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Label Text="{Binding Name}" TextColor="White"/>
+                  <Label Text="{Binding Price, StringFormat='{0:C}'}"  TextColor="White" Grid.Column="1" VerticalOptions="Center"/>
+                </Grid>               
+
+                <StackLayout HorizontalOptions="Start" Orientation="Horizontal" Spacing="10" Grid.Row="1" BackgroundColor="White" Padding="5">
+                  <Label Text="Left:" TextColor="Black" VerticalOptions="Center" FontSize="30"></Label>
+                  <Label Text="{Binding Quantity}" TextColor="Black" VerticalOptions="Center" FontSize="30"></Label>                  
+                </StackLayout>
+              </Grid>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

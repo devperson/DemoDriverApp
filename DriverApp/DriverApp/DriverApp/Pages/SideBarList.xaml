@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverApp.Pages.SideBarList"
+             Title="Side Menu">
+  <ContentView Padding="20" VerticalOptions="Fill" HorizontalOptions="Fill">
+    <ListView x:Name="listView"  VerticalOptions="Fill" HorizontalOptions="Fill">
+    </ListView>
+  </ContentView>
+</ContentPage>

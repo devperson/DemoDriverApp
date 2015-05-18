@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.driver.app" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="19" />
+	<application>
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBsfMXkmpPHQxL1Qe6HOeCrBmKB6U5DxIA" />
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+	</application>
+	<uses-feature android:glEsVersion="0x00020000" android:required="true"></uses-feature>
+</manifest>

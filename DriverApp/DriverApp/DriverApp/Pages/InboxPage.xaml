@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:con="clr-namespace:DriverApp.Controls.BindingConverters;assembly=DriverApp"
+             x:Class="DriverApp.Pages.InboxPage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <con:OrderStatusColorConverter x:Key="OrderStatusColorConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  
+  <ListView x:Name="listView" ItemsSource="{Binding Orders}" VerticalOptions="Fill" HorizontalOptions="Fill">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <StackLayout Orientation="Horizontal" BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill">
+              <ContentView Padding="5">
+                <BoxView WidthRequest="15" HeightRequest="15" VerticalOptions="Center" BackgroundColor="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"></BoxView>
+              </ContentView>
+              <Label Text="{Binding Date}" VerticalOptions="Center" TextColor="Black"/>
+              <Label Text="{Binding User.Prefix, StringFormat=' {0} '}" VerticalOptions="Center" TextColor="Black"/>              
+              <Label Text="{Binding User.DisplayName}" VerticalOptions="Center" TextColor="Black"/>
+            </StackLayout>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</ContentPage>

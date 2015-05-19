@@ -120,6 +120,7 @@
     <AndroidResource Include="Resources\drawable\img3.JPG" />
     <AndroidResource Include="Resources\drawable\pin.png" />
     <AndroidResource Include="Resources\drawable\settings.png" />
+    <AndroidResource Include="Resources\drawable\car.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DriverApp\DriverApp.csproj">

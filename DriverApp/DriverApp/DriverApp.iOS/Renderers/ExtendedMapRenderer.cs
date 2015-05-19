@@ -159,7 +159,12 @@ namespace DriverApp.iOS.Renderers
 
                 var pointAnn = annotation as MKPointAnnotation;
                 if (pointAnn != null)
-                    pinView.Image = UIImage.FromBundle("pin.png");
+                {
+                    if (pointAnn.Title == "My Location")
+                        pinView.Image = UIImage.FromBundle("car.png");
+                    else
+                        pinView.Image = UIImage.FromBundle("pin.png");
+                }
             }
             else
             {

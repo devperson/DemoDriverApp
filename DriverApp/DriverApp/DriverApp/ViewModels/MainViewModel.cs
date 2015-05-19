@@ -63,7 +63,7 @@ namespace DriverApp.ViewModels
             or1.User.Gender = "Male";
             or1.User.UserAddress = new Controls.Models.Address();
             or1.User.UserAddress.AddressText = "1680 Union St San Francisco, CA 94123, USA";
-            or1.User.UserAddress.Position = new Position(37.798231, -122.426536);
+            or1.User.UserAddress.Position = new Position(41.259655, 69.184834);//new Position(37.798231, -122.426536);
             this.Orders.Add(or1);
 
             Order or2 = new Order();

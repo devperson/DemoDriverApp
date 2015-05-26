@@ -1,16 +1,16 @@
-﻿using System;
+﻿using DriverApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace DriverApp.Pages
 {
-    public partial class LoginPage : ContentPage
+    public partial class RegistrationPage : ContentPage
     {
-        public LoginPage()
+        public RegistrationPage()
         {
             InitializeComponent();
 
@@ -21,23 +21,26 @@ namespace DriverApp.Pages
         {
             errorMsg.IsVisible = false;
             var driver = App.Locator.MainViewModel.Driver;
-
             if (string.IsNullOrEmpty(driver.UserName) || string.IsNullOrEmpty(driver.Password))
             {
                 errorMsg.IsVisible = true;
+                lblErr.Text = "Please Fill all fields.";
                 return;
             }
 
-            App.Locator.MainViewModel.WebService.Login(new { username = driver.UserName, password = driver.Password }, (res) =>
+            App.Locator.MainViewModel.WebService.RegisterUser(driver, (res) =>
             {
                 if (res.Success)
                 {
-                    driver.Id = res.DriverId;
+                    App.Locator.MainViewModel.Driver.Id = res.DriverId;
                     App.Current.MainPage = new MainPage();
                 }
                 else
+                {
                     errorMsg.IsVisible = true;
-            }); 
+                    lblErr.Text = res.Error;
+                }
+            });
         }
     }
 }

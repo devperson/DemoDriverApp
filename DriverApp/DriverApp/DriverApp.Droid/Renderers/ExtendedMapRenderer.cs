@@ -125,6 +125,7 @@ namespace DriverApp.Droid.Renderers
                 var markerWithIcon = new MarkerOptions();
                 markerWithIcon.SetPosition(new LatLng(item.Position.Latitude, item.Position.Longitude));
                 markerWithIcon.SetTitle(string.IsNullOrWhiteSpace(item.Label) ? "-" : item.Label);
+                markerWithIcon.SetSnippet(string.IsNullOrWhiteSpace(item.Address) ? "-" : item.Address);
 
                 try
                 {

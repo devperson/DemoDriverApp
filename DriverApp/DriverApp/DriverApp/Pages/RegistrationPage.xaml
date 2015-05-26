@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverApp.Pages.RegistrationPage">
+  <ScrollView>
+    <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
+
+      <ContentView x:Name="errorMsg" Padding="20" IsVisible="False">
+        <Label x:Name="lblErr" Text="" TextColor="Red"></Label>
+      </ContentView>
+
+      <Entry Text="{Binding FirstName}" Placeholder="First Name"/>
+
+      <Entry Text="{Binding LastName}" Placeholder="Last Name"/>
+
+      <Entry Text="{Binding Phone}" Keyboard="Numeric" Placeholder="Phone"/>
+
+      <Entry Text="{Binding UserName}" Placeholder="User name"/>
+
+      <Entry Text="{Binding Password}" Placeholder="Password"/>
+
+      <Entry Text="{Binding AddressLine1}" Placeholder="AddressLine"/>
+
+      <Entry Text="{Binding City}" Placeholder="City"/>
+      
+      <Entry Text="{Binding State}" Placeholder="State"/>
+
+      <Entry Text="{Binding Postal}" Placeholder="Postal"/>
+
+      <Entry Text="{Binding Country}" Placeholder="Country"/>
+
+      <Entry Text="{Binding LicenseNumber}" Placeholder="LicenseNumber" Keyboard="Numeric"/>
+      <Entry Text="{Binding StateIssued}" Placeholder="StateIssued"/>
+
+      <Button Text="Submit" Clicked="Submit_Clicked" BackgroundColor="Green" TextColor="White"></Button>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

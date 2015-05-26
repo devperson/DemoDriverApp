@@ -12,8 +12,8 @@ namespace DriverApp.Controls.BindingConverters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var status = (OrderStatus)value;
-            if (status == OrderStatus.Open)
+            var isDelivered = (bool)value;
+            if (isDelivered)
                 return Color.Red;
             else
                 return Color.Gray;        

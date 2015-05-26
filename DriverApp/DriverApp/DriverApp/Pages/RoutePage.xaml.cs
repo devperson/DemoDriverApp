@@ -17,12 +17,20 @@ namespace DriverApp.Pages
             InitializeComponent();           
             this.BindingContext = App.Locator.MainViewModel.ViewOrder;
 
-            SetupMap();
+            Device.StartTimer(TimeSpan.FromSeconds(0.5), () =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    SetupMap();
+                });
+                return false;
+            });
+            
         }
 
         private async void SetupMap()
         {
-            var driverAddress = await App.Locator.MainViewModel.GetPosition();
+            var driverAddress = App.Locator.MainViewModel.Driver.Address; //await App.Locator.MainViewModel.GetPosition();
             var customerAddress = App.Locator.MainViewModel.ViewOrder.User.UserAddress;
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(driverAddress.Position, Xamarin.Forms.Maps.Distance.FromMiles(0.5)));

@@ -12,16 +12,12 @@ namespace DriverApp.Models
         {
             this.Meals = new List<Menu>();
         }
+
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public User User { get; set; }
         public List<Menu> Meals { get; set; }
 
-        public OrderStatus Status { get; set; }
-    }
-
-    public enum OrderStatus
-    {
-        Open,
-        Closed
+        public bool IsDelivered { get; set; }
     }
 }

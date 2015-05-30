@@ -11,6 +11,7 @@ namespace DriverApp.Pages
     {        
         public MainPage()
         {
+            App.Locator.MainViewModel.OnDriverLogedIn();
             this.Title = "Meals";
             var sideList = new SideBarList();
             sideList.SideItemSelected += (s, e) =>

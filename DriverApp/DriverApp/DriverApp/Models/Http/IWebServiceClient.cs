@@ -10,15 +10,15 @@ namespace DriverApp
 {
     public interface IWebServiceClient
     {
-        void PostObject<T>(string requestUrl, T obj, Action<ResponseBase> onCompleted = null);        
+        void PostObject<T>(string requestUrl, T obj, Action<ResponseBase> onCompleted = null);
 
-        void RegisterUser(Driver user, Action<AuthResponse> action);
-        void Login(object obj, Action<AuthResponse> action);
+        void RegisterUser(Driver user, Action<AuthResponse> action = null);
+        void Login(object obj, Action<AuthResponse> action = null);
 
-        void GetOrders(int driverId, int lastOrderId, Action<OrdersResponse> onCompleted);
-        void GetInventory(int driverId, Action<InventoryResponse> onCompleted);
+        void GetOrders(int driverId, int lastOrderId, Action<OrdersResponse> onCompleted = null);
+        void GetInventory(int driverId, Action<InventoryResponse> onCompleted = null);
 
-        void CompleteOrder(int orderId, Action<ResponseBase> onCompleted);
+        void CompleteOrder(int orderId, Action<ResponseBase> onCompleted = null);
     }
 
    

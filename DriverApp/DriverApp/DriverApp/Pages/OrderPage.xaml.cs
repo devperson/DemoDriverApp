@@ -10,7 +10,7 @@ namespace DriverApp.Pages
 {
     public partial class OrderPage : ContentPage
     {
-        public OrderPage()
+        public OrderPage(bool isLastPage = false)
         {
             InitializeComponent();
 
@@ -55,11 +55,37 @@ namespace DriverApp.Pages
             lblTax.Text = "$" + tax;
             lblSubTotal.Text = "$" + subTotal;
             lblTotal.Text = "$" + (subTotal + tax).ToString();
+
+            var btnComplete = new ToolbarItem() { Text = "Complete" };
+            btnComplete.Clicked += btnComplete_Clicked;
+            this.ToolbarItems.Add(btnComplete); 
+          
+            if(isLastPage)
+            {
+                btn.Text = "Call";
+                btn.Clicked += btnCall_Clicked;
+            }
+            else
+            {
+                btn.Text = "View on Map";
+                btn.Clicked += ViewLocation_Clicked;
+            }
+        }
+
+        private void btnCall_Clicked(object sender, EventArgs e)
+        {
+            
         }
 
         private void ViewLocation_Clicked(object sender, EventArgs e)
         {
             this.Navigation.PushAsync(new RoutePage());
+        }
+
+        private void btnComplete_Clicked(object sender, EventArgs e)
+        {
+            App.Locator.MainViewModel.CompleteOrder();
+            this.Navigation.PopAsync(true);
         }
     }
 }

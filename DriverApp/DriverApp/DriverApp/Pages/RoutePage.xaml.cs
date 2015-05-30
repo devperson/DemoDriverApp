@@ -25,7 +25,10 @@ namespace DriverApp.Pages
                 });
                 return false;
             });
-            
+
+            var btnComplete = new ToolbarItem() { Text = "Complete" };
+            btnComplete.Clicked += btnComplete_Clicked;
+            this.ToolbarItems.Add(btnComplete);     
         }
 
         private async void SetupMap()
@@ -35,11 +38,19 @@ namespace DriverApp.Pages
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(driverAddress.Position, Xamarin.Forms.Maps.Distance.FromMiles(0.5)));
             map.Pins.Clear();
-            map.Pins.Add(new Pin { Label = "My Location", Address = driverAddress.AddressText, Position = driverAddress.Position });            
+            map.Pins.Add(new Pin { Label = "My Location", Address = driverAddress.AddressText, Position = driverAddress.Position });
             map.Pins.Add(new Pin { Label = customerAddress.AddressText, Address = customerAddress.AddressText, Position = customerAddress.Position });
 
             await map.CreateRoute(driverAddress.Position, customerAddress.Position);
         }
+
+        private void btnComplete_Clicked(object sender, EventArgs e)
+        {
+            App.Locator.MainViewModel.CompleteOrder();            
+            this.Navigation.PopToRootAsync(true);
+        }
+
+       
 
         private void Call_Clicked(object sender, EventArgs e)
         {

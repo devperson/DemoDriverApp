@@ -23,5 +23,10 @@ namespace DriverApp.Pages
                 this.Navigation.PushAsync(new OrderPage());
             };         
         }
+
+        private void btnViewOnMap_Clicked(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new AllCustomersMapPage());
+        }
     }
 }

@@ -37,7 +37,7 @@
       <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand"></BoxView>
 
       <ContentView Padding="20" HorizontalOptions="Center" VerticalOptions="Center">
-        <Button Text="Delivery Address" Clicked="ViewLocation_Clicked" WidthRequest="150" BackgroundColor="Red" TextColor="White"></Button>
+        <Button x:Name="btn" WidthRequest="150" BackgroundColor="Red" TextColor="White"></Button>
       </ContentView>
     </StackLayout>
   </ScrollView>

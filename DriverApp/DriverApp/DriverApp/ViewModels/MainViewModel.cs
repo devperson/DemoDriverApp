@@ -21,7 +21,8 @@ namespace DriverApp.ViewModels
         public ObservableCollection<Order> Orders { get; set; }
         public Order ViewOrder { get; set; }
         public ObservableCollection<Menu> Menu { get; set; }
-        public Driver Driver { get; set; }
+        public Driver Driver { get; set; }        
+
 
         private IWebServiceClient _service;
         public IWebServiceClient WebService
@@ -33,6 +34,19 @@ namespace DriverApp.ViewModels
                     _service = DependencyService.Get<IWebServiceClient>();
                 }
                 return _service;
+            }
+        }
+
+        private IHubClient _ntf;
+        public IHubClient Notifier
+        {
+            get
+            {
+                if (_ntf == null)
+                {
+                    _ntf = DependencyService.Get<IHubClient>();                    
+                }
+                return _ntf;
             }
         }
         
@@ -47,12 +61,6 @@ namespace DriverApp.ViewModels
             this.Menu = new ObservableCollection<Menu>();
             this.Driver = new Driver();
 
-
-            Device.StartTimer(TimeSpan.FromSeconds(0.5), () =>
-            {
-                this.GetData();               
-                return false;
-            });
             //Menu menu1 = new Menu();
             //menu1.Name = "CHICKEN AND CHEESE ENCHILADAS";
             //menu1.Price = 8;
@@ -117,19 +125,48 @@ namespace DriverApp.ViewModels
             });
         }
 
+        public void OnDriverLogedIn()
+        {
+            this.Notifier.Initialize(this.ApiUrl, "Driver" + this.Driver.Id.ToString());
+            this.Notifier.OnNewOrder += Notifier_OnNewOrder;
+            this.GetData();
+        }
+
         private void GetData()
         {
             this.WebService.GetInventory(this.Driver.Id, (response) =>
             {
                 this.Menu = new ObservableCollection<Menu>(response.Inventories);
+                this.RaisePropertyChanged(p => p.Menu);
+
                 int lastOrderId = this.Orders.Any() ? this.Orders.Last().Id : 0;
                 this.WebService.GetOrders(this.Driver.Id, lastOrderId, (res) =>
-                {                    
+                {
                     this.Orders = new ObservableCollection<Order>(res.Orders);
+                    this.RaisePropertyChanged(p => p.Orders);
                 });
             });
         }
 
+        public void Notifier_OnNewOrder(object sender, OrderEventArgs e)
+        {
+            int lastOrderId = this.Orders.Any() ? this.Orders.Last().Id : 0;
+            this.WebService.GetOrders(this.Driver.Id, lastOrderId, (res) =>
+            {
+                if (res.Orders.Count > 1)
+                {
+                    var orders = new List<Order>(this.Orders);
+                    orders.AddRange(res.Orders);
+                    this.Orders = new ObservableCollection<Order>(orders.OrderByDescending(o => o.Date));
+                    this.RaisePropertyChanged(p => p.Orders);
+                }
+                else if (res.Orders.Count == 1)
+                {
+                    this.Orders.Insert(0, res.Orders.FirstOrDefault());                    
+                }
+            });
+        }
+        
         private void locator_PositionChanged(object sender, Geolocator.Plugin.Abstractions.PositionEventArgs e)
         {
             var pos = new Position(e.Position.Latitude, e.Position.Longitude);
@@ -143,6 +180,25 @@ namespace DriverApp.ViewModels
                 userAddress.AddressText = addr;
                 userAddress.Position = pos;
                 this.Driver.Address = userAddress;
+                 
+                var msgData = new MsgData();
+                msgData.Data = new { DriverId = this.Driver.Id, Position = pos };
+                msgData.To = this.Orders.Where(o => !o.IsDelivered).Select(o => "Customer" + o.User.Id).ToList();
+                this.Notifier.NotifyNewDriverLocation(msgData);
+            });
+        }
+
+        public void CompleteOrder()
+        {
+            this.WebService.CompleteOrder(this.ViewOrder.Id, (res) =>
+            {
+                this.ViewOrder.IsDelivered = true;
+                this.ViewOrder.RaisePropertyChanged("IsDelivered");
+
+                var msgData = new MsgData();
+                msgData.Data = new { OrderId = this.ViewOrder.Id };
+                msgData.To.Add("Customer" + this.ViewOrder.User.Id);
+                this.Notifier.NotifyOrderCompleted(msgData);
             });
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DriverApp.Models
 {
-    public class Order
+    public class Order : ObservableObject
     {
         public Order()
         {

@@ -10,23 +10,28 @@
     </ResourceDictionary>
   </ContentPage.Resources>
 
-  
-  <ListView x:Name="listView" ItemsSource="{Binding Orders}" VerticalOptions="Fill" HorizontalOptions="Fill">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <ViewCell.View>
-            <StackLayout Orientation="Horizontal" BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill">
-              <ContentView Padding="5">
-                <BoxView WidthRequest="15" HeightRequest="15" VerticalOptions="Center" BackgroundColor="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"></BoxView>
-              </ContentView>
-              <Label Text="{Binding Date}" VerticalOptions="Center" TextColor="Black"/>
-              <Label Text="{Binding User.Prefix, StringFormat=' {0} '}" VerticalOptions="Center" TextColor="Black"/>              
-              <Label Text="{Binding User.DisplayName}" VerticalOptions="Center" TextColor="Black"/>
-            </StackLayout>
-          </ViewCell.View>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+  <StackLayout>
+    <ListView x:Name="listView" ItemsSource="{Binding Orders}" VerticalOptions="Fill" HorizontalOptions="Fill">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <StackLayout Orientation="Horizontal" BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill">
+                <ContentView Padding="5">
+                  <BoxView WidthRequest="15" HeightRequest="15" VerticalOptions="Center" BackgroundColor="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"></BoxView>
+                </ContentView>
+                <Label Text="{Binding Date}" VerticalOptions="Center" TextColor="Black"/>
+                <Label Text="{Binding User.Prefix, StringFormat=' {0} '}" VerticalOptions="Center" TextColor="Black"/>              
+                <Label Text="{Binding User.DisplayName}" VerticalOptions="Center" TextColor="Black"/>
+              </StackLayout>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+    <ContentView Padding="20" HorizontalOptions="Fill" VerticalOptions="End" BackgroundColor="Gray">
+      <Button HorizontalOptions="Center" Text="View on Map" Clicked="btnViewOnMap_Clicked" TextColor="White" BackgroundColor="Red"></Button>
+    </ContentView>
+  </StackLayout>
 </ContentPage>

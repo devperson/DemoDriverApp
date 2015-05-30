@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace CustomerApp.Models
+namespace DriverApp.Models
 {
     public class ObservableObject : INotifyPropertyChanged
     {

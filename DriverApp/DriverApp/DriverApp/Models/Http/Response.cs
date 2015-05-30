@@ -42,6 +42,11 @@ namespace DriverApp.Models.Http
         public List<Order> Orders { get; set; }
     }
 
+    public class CustomersResponse : ResponseBase
+    {
+        public List<int> Ids { get; set; }
+    }
+
     public class InventoryResponse : ResponseBase
     {
         public List<Menu> Inventories { get; set; }

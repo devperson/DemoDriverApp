@@ -34,7 +34,7 @@ namespace DriverApp.PCL
 			client.AddDefaultHeader("Accept", "application/json");
 		}
 
-        public async void RegisterUser(Driver user, Action<AuthResponse> action)
+        public async void RegisterUser(Driver user, Action<AuthResponse> action=null)
         {
             var asyncResult = await ExecuteServiceMethod<AuthResponse>("api/driverapi/register", Method.POST, content =>
             {
@@ -45,7 +45,7 @@ namespace DriverApp.PCL
                 action(asyncResult);
         }
 
-        public async void Login(object obj, Action<AuthResponse> action)
+        public async void Login(object obj, Action<AuthResponse> action = null)
         {
             var asyncResult = await ExecuteServiceMethod<AuthResponse>("api/driverapi/login", Method.POST, content =>
             {
@@ -56,7 +56,7 @@ namespace DriverApp.PCL
                 action(asyncResult);
         }
 
-        public async void GetOrders(int driverId, int lastOrderId, Action<OrdersResponse> onCompleted)
+        public async void GetOrders(int driverId, int lastOrderId, Action<OrdersResponse> onCompleted = null)
         {
             var asyncResult = await ExecuteServiceMethod<OrdersResponse>("api/driverapi/GetOrders?driverId=" + driverId + "&lastOrderId=" + lastOrderId, Method.GET, content =>
             {
@@ -67,7 +67,7 @@ namespace DriverApp.PCL
                 onCompleted(asyncResult);
         }
 
-        public async void GetInventory(int driverId, Action<InventoryResponse> onCompleted)
+        public async void GetInventory(int driverId, Action<InventoryResponse> onCompleted = null)
         {
             var asyncResult = await ExecuteServiceMethod<InventoryResponse>("api/driverapi/GetInventory?driverId=" + driverId, Method.GET, content =>
             {
@@ -78,7 +78,7 @@ namespace DriverApp.PCL
                 onCompleted(asyncResult);
         }
 
-        public async void CompleteOrder(int orderId, Action<ResponseBase> onCompleted)
+        public async void CompleteOrder(int orderId, Action<ResponseBase> onCompleted = null)
         {
             var asyncResult = await ExecuteServiceMethod<ResponseBase>("api/driverapi/CompleteOrder?orderId=" + orderId, Method.PUT, content =>
             {
@@ -87,6 +87,11 @@ namespace DriverApp.PCL
             });
             if (onCompleted != null)
                 onCompleted(asyncResult);
+        }
+
+        public async void GetActiveCustomers(int driverId, int lastCustomerId, Action<CustomersResponse> onCompleted = null)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -161,6 +166,9 @@ namespace DriverApp.PCL
             string htmlContent = "<!DOCTYPE";
             if (responsString.Contains(htmlContent))
                 throw new Exception("Server is down please try later.");
-        }        
+        }
+
+
+        
     }
 }

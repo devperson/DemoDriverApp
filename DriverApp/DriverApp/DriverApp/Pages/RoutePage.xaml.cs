@@ -35,7 +35,7 @@ namespace DriverApp.Pages
         {
             var driver = App.Locator.MainViewModel.Driver;
             var driverPosition = new Position(driver.CurrentLatitude, driver.CurrentLongitude);
-            var customerAddress = App.Locator.MainViewModel.ViewOrder.User.UserAddress;
+            var customerAddress = App.Locator.MainViewModel.ViewOrder.User.Address;
             var custPosition = new Position(customerAddress.Lat, customerAddress.Lon);
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(driverPosition, Xamarin.Forms.Maps.Distance.FromMiles(0.5)));

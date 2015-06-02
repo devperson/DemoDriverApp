@@ -14,7 +14,7 @@ namespace DriverApp.Pages
         {
             InitializeComponent();
 
-            this.BindingContext = App.Locator.MainViewModel.Driver;
+            this.BindingContext = App.Locator.MainViewModel;
         }
 
         private void Submit_Clicked(object sender, EventArgs e)
@@ -28,8 +28,10 @@ namespace DriverApp.Pages
                 return;
             }
 
+            App.Locator.MainViewModel.LoadingCount++;
             App.Locator.MainViewModel.WebService.RegisterUser(driver, (res) =>
             {
+                App.Locator.MainViewModel.LoadingCount--;
                 if (res.Success)
                 {
                     App.Locator.MainViewModel.Driver.Id = res.DriverId;

@@ -99,6 +99,7 @@ namespace DriverApp.ViewModels
 
         private void GetData()
         {
+            this.LoadingCount++;
             this.WebService.GetInventory(this.Driver.Id, (response) =>
             {
                 if (response.Success)
@@ -110,10 +111,11 @@ namespace DriverApp.ViewModels
                 {                    
                     this.ShowError("Error on getting inventory data. " + response.Error);
                 }
-
+                
                 int lastOrderId = this.Orders.Any() ? this.Orders.Last().Id : 0;
                 this.WebService.GetOrders(this.Driver.Id, lastOrderId, (res) =>
                 {
+                    this.LoadingCount--;
                     if (res.Success)
                     {
                         this.Orders = new ObservableCollection<Order>(res.Orders);

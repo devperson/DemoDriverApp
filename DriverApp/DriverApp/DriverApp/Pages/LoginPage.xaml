@@ -5,18 +5,20 @@
              x:Class="DriverApp.Pages.LoginPage">
 
   <Grid>
-    
-    <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
-      <ContentView x:Name="errorMsg" Padding="20" IsVisible="False">
-        <Label x:Name="lbl" Text="User name or password is incorrect." TextColor="Red"></Label>
-      </ContentView>
-    
-      <Entry Text="{Binding Driver.UserName}" Placeholder="User name"/>
-      <Entry  Text="{Binding Driver.Password}" Placeholder="Password"/>
 
-      <Button Text="Submit" Clicked="Submit_Clicked" BackgroundColor="Green" ></Button>
-    </StackLayout>
+    <ScrollView>
+      <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
+        <ContentView x:Name="errorMsg" Padding="20" IsVisible="False">
+          <Label x:Name="lbl" Text="User name or password is incorrect." TextColor="Red"></Label>
+        </ContentView>
+    
+        <Entry Text="{Binding Driver.UserName}" Placeholder="User name"/>
+        <Entry  Text="{Binding Driver.Password}" Placeholder="Password" IsPassword="True"/>
 
+        <Button Text="Submit" Clicked="Submit_Clicked" BackgroundColor="Green" ></Button>
+      </StackLayout>
+    </ScrollView>
+    
     <controls:ActivityView IsVisible="{Binding IsLoading}" VerticalOptions="Fill" HorizontalOptions="Fill"/>
 
   </Grid>

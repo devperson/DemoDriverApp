@@ -34,7 +34,7 @@ namespace DriverApp.Pages
             map.Pins.Add(new Pin { Label = "My Location", Address = driver.CurrentAddress, Position = new Position(driver.CurrentLatitude, driver.CurrentLongitude) });
             foreach (var order in App.Locator.MainViewModel.Orders.Where(o=>!o.IsDelivered).ToList())
             {
-                var userAddress = order.User.UserAddress;
+                var userAddress = order.User.Address;
                 var pin = new Pin { Label = userAddress.AddressText, Address = userAddress.AddressText, Position = new Position(userAddress.Lat, userAddress.Lon) };
                 pin.BindingContext = order;
                 pin.Clicked += pin_Clicked;

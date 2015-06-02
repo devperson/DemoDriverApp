@@ -29,6 +29,6 @@ namespace DriverApp.Models
             }
         }
 
-        public Address UserAddress { get; set; }
+        public Address Address { get; set; }
     }
 }

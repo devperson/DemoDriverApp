@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverApp.Controls.ActivityView">
+
+  
+    
+
+    <Grid Spacing="10" Padding="40,20,40,20" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Black">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      
+      <!--<BoxView BackgroundColor="Black" Grid.RowSpan="2" VerticalOptions="Fill" HorizontalOptions="Fill"/>-->
+
+      <ActivityIndicator Color="White" IsRunning="True" HorizontalOptions="Center"></ActivityIndicator>
+      <Label Text="Wait..." TextColor="White" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" />    
+    </Grid>  
+</ContentView>

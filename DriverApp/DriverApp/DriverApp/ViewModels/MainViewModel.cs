@@ -15,7 +15,23 @@ namespace DriverApp.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-
+        int _loadCount;
+        public int LoadingCount
+        {
+            get { return _loadCount; }
+            set
+            {
+                _loadCount = value;
+                this.RaisePropertyChanged(p => p.IsLoading);
+            }
+        }
+        public bool IsLoading
+        {
+            get
+            {
+                return this.LoadingCount > 0;
+            }
+        }
         public string ApiUrl = "";
         public ObservableCollection<Order> Orders { get; set; }
         public Order ViewOrder { get; set; }

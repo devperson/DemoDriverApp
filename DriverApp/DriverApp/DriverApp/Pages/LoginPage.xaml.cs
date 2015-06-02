@@ -14,7 +14,7 @@ namespace DriverApp.Pages
         {
             InitializeComponent();
 
-            this.BindingContext = App.Locator.MainViewModel.Driver;
+            this.BindingContext = App.Locator.MainViewModel;
         }
 
         private void Submit_Clicked(object sender, EventArgs e)
@@ -27,9 +27,10 @@ namespace DriverApp.Pages
                 errorMsg.IsVisible = true;
                 return;
             }
-
+            App.Locator.MainViewModel.LoadingCount++;
             App.Locator.MainViewModel.WebService.Login(new { username = driver.UserName, password = driver.Password }, (res) =>
             {
+                App.Locator.MainViewModel.LoadingCount--;
                 if (res.Success)
                 {
                     driver.Id = res.DriverId;

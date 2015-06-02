@@ -9,6 +9,8 @@ namespace DriverApp.Controls.Models
     public class Address
     {
         public string AddressText { get; set; }
-        public Xamarin.Forms.Maps.Position Position { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
+        //public Xamarin.Forms.Maps.Position Position { get; set; }
     }
 }

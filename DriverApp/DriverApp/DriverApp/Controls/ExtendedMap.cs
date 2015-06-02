@@ -226,7 +226,7 @@ namespace DriverApp.Controls
                 Type = PinType.SearchResult,
             });
 
-            return new Address { AddressText = _address, Position = po };
+            return new Address { AddressText = _address, Lat = po.Latitude, Lon = po.Longitude };
         }
 
 

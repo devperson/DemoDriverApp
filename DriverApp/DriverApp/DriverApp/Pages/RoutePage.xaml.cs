@@ -36,13 +36,14 @@ namespace DriverApp.Pages
             var driver = App.Locator.MainViewModel.Driver;
             var driverPosition = new Position(driver.CurrentLatitude, driver.CurrentLongitude);
             var customerAddress = App.Locator.MainViewModel.ViewOrder.User.UserAddress;
+            var custPosition = new Position(customerAddress.Lat, customerAddress.Lon);
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(driverPosition, Xamarin.Forms.Maps.Distance.FromMiles(0.5)));
             map.Pins.Clear();
             map.Pins.Add(new Pin { Label = "My Location", Address = driver.CurrentAddress, Position = driverPosition });
-            map.Pins.Add(new Pin { Label = customerAddress.AddressText, Address = customerAddress.AddressText, Position = customerAddress.Position });
+            map.Pins.Add(new Pin { Label = customerAddress.AddressText, Address = customerAddress.AddressText, Position = custPosition });
 
-            await map.CreateRoute(driverPosition, customerAddress.Position);
+            await map.CreateRoute(driverPosition, custPosition);
         }
 
         private void btnComplete_Clicked(object sender, EventArgs e)

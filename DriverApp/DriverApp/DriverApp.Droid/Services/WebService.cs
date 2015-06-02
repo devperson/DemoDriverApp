@@ -60,7 +60,7 @@ namespace DriverApp.PCL
         {
             var asyncResult = await ExecuteServiceMethod<OrdersResponse>("api/driverapi/GetOrders?driverId=" + driverId + "&lastOrderId=" + lastOrderId, Method.GET, content =>
             {
-                var response = new OrdersResponse { Orders = JsonConvert.DeserializeObject<List<Order>>(content), Success = true };
+                var response = JsonConvert.DeserializeObject<OrdersResponse>(content);
                 return response;
             });
             if (onCompleted != null)
@@ -71,7 +71,7 @@ namespace DriverApp.PCL
         {
             var asyncResult = await ExecuteServiceMethod<InventoryResponse>("api/driverapi/GetInventory?driverId=" + driverId, Method.GET, content =>
             {
-                var response = new InventoryResponse { Inventories = JsonConvert.DeserializeObject<List<Menu>>(content), Success = true };
+                var response = JsonConvert.DeserializeObject<InventoryResponse>(content);
                 return response;
             });
             if (onCompleted != null)
@@ -89,11 +89,6 @@ namespace DriverApp.PCL
                 onCompleted(asyncResult);
         }
 
-        public async void GetActiveCustomers(int driverId, int lastCustomerId, Action<CustomersResponse> onCompleted = null)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Method provides register object service call.
         /// </summary>    
@@ -101,7 +96,7 @@ namespace DriverApp.PCL
         {
             var asyncResult = await ExecuteServiceMethod<ResponseBase>(requestUrl, Method.POST, content =>
             {
-                var response = new ResponseBase();
+                var response = JsonConvert.DeserializeObject<ResponseBase>(content);
                 return response;
             }, obj);
             if (onCompleted != null)
@@ -167,8 +162,5 @@ namespace DriverApp.PCL
             if (responsString.Contains(htmlContent))
                 throw new Exception("Server is down please try later.");
         }
-
-
-        
     }
 }

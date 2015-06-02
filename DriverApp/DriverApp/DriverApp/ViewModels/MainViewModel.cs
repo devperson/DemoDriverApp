@@ -1,5 +1,4 @@
-﻿using CustomerApp.Models;
-using DriverApp.Controls.Models;
+﻿using DriverApp.Controls.Models;
 using DriverApp.Models;
 using Geolocator.Plugin;
 using System;

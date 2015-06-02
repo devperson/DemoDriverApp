@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace DriverApp.Pages
 {
-    public partial class MealsPage : ContentPage
+    public partial class MealsPage : BasePage
     {
         public MealsPage()
         {

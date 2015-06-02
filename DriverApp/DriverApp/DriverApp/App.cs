@@ -10,12 +10,13 @@ namespace DriverApp
 {
     public class App : Application
     {
+        public static bool IsDevice { get; set; }
         public static ViewModelLocator Locator { get; set; }       
         public App()
         {
             Locator = new ViewModelLocator();
             // The root page of your application
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new StartPage());
         }
 
         protected override void OnStart()

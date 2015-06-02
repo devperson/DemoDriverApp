@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace DriverApp.Pages
 {
-    public partial class InboxPage : ContentPage
+    public partial class InboxPage : BasePage
     {
         public InboxPage()
         {

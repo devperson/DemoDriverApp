@@ -29,6 +29,8 @@ namespace DriverApp.Models
         public string LicenseNumber { get; set; }
         public string StateIssued { get; set; }
 
-        public Address Address { get; set; }
+        public string CurrentAddress { get; set; }
+        public double CurrentLatitude { get; set; }
+        public double CurrentLongitude { get; set; }        
     }
 }

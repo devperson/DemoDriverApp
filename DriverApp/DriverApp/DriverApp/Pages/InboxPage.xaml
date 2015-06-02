@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:con="clr-namespace:DriverApp.Controls.BindingConverters;assembly=DriverApp"
+             xmlns:local="clr-namespace:DriverApp;assembly=DriverApp"
              x:Class="DriverApp.Pages.InboxPage">
 
   <ContentPage.Resources>
@@ -31,7 +32,7 @@
     </ListView>
 
     <ContentView Padding="20" HorizontalOptions="Fill" VerticalOptions="End" BackgroundColor="Gray">
-      <Button HorizontalOptions="Center" Text="View on Map" Clicked="btnViewOnMap_Clicked" TextColor="White" BackgroundColor="Red"></Button>
+      <Button HorizontalOptions="Center" Text="View All on Map" Clicked="btnViewOnMap_Clicked" TextColor="White" BackgroundColor="Red" WidthRequest="120"></Button>
     </ContentView>
   </StackLayout>
-</ContentPage>
+</local:BasePage>

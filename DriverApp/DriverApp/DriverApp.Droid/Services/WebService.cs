@@ -60,7 +60,7 @@ namespace DriverApp.PCL
         {
             var asyncResult = await ExecuteServiceMethod<OrdersResponse>("api/driverapi/GetOrders?driverId=" + driverId + "&lastOrderId=" + lastOrderId, Method.GET, content =>
             {
-                var response = new OrdersResponse { Orders = JsonConvert.DeserializeObject<List<Order>>(content), Success = true };
+                var response = JsonConvert.DeserializeObject<OrdersResponse>(content);
                 return response;
             });
             if (onCompleted != null)
@@ -71,7 +71,7 @@ namespace DriverApp.PCL
         {
             var asyncResult = await ExecuteServiceMethod<InventoryResponse>("api/driverapi/GetInventory?driverId=" + driverId, Method.GET, content =>
             {
-                var response = new InventoryResponse { Inventories = JsonConvert.DeserializeObject<List<Menu>>(content), Success = true };
+                var response = JsonConvert.DeserializeObject<InventoryResponse>(content);
                 return response;
             });
             if (onCompleted != null)
@@ -89,9 +89,15 @@ namespace DriverApp.PCL
                 onCompleted(asyncResult);
         }
 
-        public async void GetActiveCustomers(int driverId, int lastCustomerId, Action<CustomersResponse> onCompleted = null)
+        public async void UpdateDriverLocation(object obj, Action<ResponseBase> onCompleted = null)
         {
-            throw new NotImplementedException();
+            var asyncResult = await ExecuteServiceMethod<ResponseBase>("api/driverapi/updateDriverLocation", Method.POST, content =>
+            {
+                var response = JsonConvert.DeserializeObject<ResponseBase>(content);
+                return response;
+            }, obj);
+            if (onCompleted != null)
+                onCompleted(asyncResult);
         }
 
         /// <summary>
@@ -119,8 +125,7 @@ namespace DriverApp.PCL
             {
                 restRequest.RequestFormat = DataFormat.Json;
                 var json = JsonConvert.SerializeObject(requestObject);
-                restRequest.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);
-                //restRequest.AddBody(requestObject);
+                restRequest.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);                
             }
 
             return Task.Run<T>(() =>
@@ -133,20 +138,19 @@ namespace DriverApp.PCL
                     this.CheckServer(restResponse.Content);
                     if (!string.IsNullOrEmpty(restResponse.Content))
                     {
-                        response = deserialiser(restResponse.Content);// JsonConvert.DeserializeObject<T>(restResponse.Content);
-                        if (restResponse.Content.Contains("ExceptionMessage"))
+                        response = deserialiser(restResponse.Content);
+                        if (restResponse.Content.Contains("ExceptionMessage") || restResponse.Content.Contains("Message"))
                             errorResponse = JsonConvert.DeserializeObject<ErrorResponseModel>(restResponse.Content);
-                        else response.Success = true;
                     }
                     else
-                    {                        
-                        errorResponse.ExceptionMessage = "No connection";
-					    response.Success = false;
+                    {
+                        errorResponse.ExceptionMessage = "There seems to be internet connection problem.";
+                        response.Success = false;
                     }
-                    if (errorResponse != null && !string.IsNullOrEmpty(errorResponse.ExceptionMessage))
+                    if (errorResponse != null && errorResponse.HasErrorMessage)
                     {
                         response.Success = false;
-                        response.Error = errorResponse.ExceptionMessage;
+                        response.Error = errorResponse.ErrorMessage;
                     }
                 }
                 catch (Exception ex)
@@ -167,8 +171,5 @@ namespace DriverApp.PCL
             if (responsString.Contains(htmlContent))
                 throw new Exception("Server is down please try later.");
         }
-
-
-        
     }
 }

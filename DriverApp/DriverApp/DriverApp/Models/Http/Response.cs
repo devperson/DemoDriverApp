@@ -17,7 +17,27 @@ namespace DriverApp.Models.Http
     {
         public string Message { get; set; }
         public string ExceptionMessage { get; set; }
-        public string ExceptionType { get; set; }
+        //public string ExceptionType { get; set; }
+
+
+        public bool HasErrorMessage
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.Message) || !string.IsNullOrEmpty(this.ExceptionMessage);
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.Message))
+                    return this.Message;
+                else
+                    return this.ExceptionMessage;
+            }
+        }
     }
 
     public class MenuResponse : ResponseBase

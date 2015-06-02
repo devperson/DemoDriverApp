@@ -18,6 +18,15 @@ namespace DriverApp.Models
         public User User { get; set; }
         public List<Menu> Meals { get; set; }
 
-        public bool IsDelivered { get; set; }
+        bool _isDelivered;
+        public bool IsDelivered 
+        {
+            get { return _isDelivered; }
+            set
+            {
+                _isDelivered = value;
+                this.RaisePropertyChanged(p => p.IsDelivered);
+            }
+        }
     }
 }

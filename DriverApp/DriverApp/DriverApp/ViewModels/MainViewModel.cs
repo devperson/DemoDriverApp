@@ -132,8 +132,10 @@ namespace DriverApp.ViewModels
         public void Notifier_OnNewOrder(object sender, OrderEventArgs e)
         {
             int lastOrderId = this.Orders.Any() ? this.Orders.Last().Id : 0;
+            this.LoadingCount++;
             this.WebService.GetOrders(this.Driver.Id, lastOrderId, (res) =>
             {
+                this.LoadingCount--;
                 if (res.Orders.Count > 1)
                 {
                     var orders = new List<Order>(this.Orders);
@@ -180,8 +182,11 @@ namespace DriverApp.ViewModels
 
         public void CompleteOrder()
         {
+            this.LoadingCount++;
             this.WebService.CompleteOrder(this.ViewOrder.Id, (res) =>
             {
+                this.LoadingCount--;
+
                 this.ViewOrder.IsDelivered = true;
                 this.ViewOrder.RaisePropertyChanged("IsDelivered");
 

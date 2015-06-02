@@ -18,6 +18,10 @@ namespace DriverApp.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::Xamarin.FormsMaps.Init(this, bundle);
+
+            var fing = Build.Fingerprint;
+            App.IsDevice = fing != null && !(fing.Contains("vbox") || fing.Contains("generic"));
+
             LoadApplication(new App());
         }
     }

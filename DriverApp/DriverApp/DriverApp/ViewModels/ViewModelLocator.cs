@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DriverApp.ViewModels
 {
     public class ViewModelLocator
-    {
+    {        
         public ViewModelLocator()
         {
             this.MainViewModel = new MainViewModel();

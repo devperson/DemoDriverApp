@@ -19,6 +19,7 @@ namespace DriverApp
         void GetInventory(int driverId, Action<InventoryResponse> onCompleted = null);
 
         void CompleteOrder(int orderId, Action<ResponseBase> onCompleted = null);
+        void UpdateDriverLocation(object obj, Action<ResponseBase> onCompleted = null);
     }
 
    

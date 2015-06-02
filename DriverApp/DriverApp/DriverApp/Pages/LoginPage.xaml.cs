@@ -36,7 +36,10 @@ namespace DriverApp.Pages
                     App.Current.MainPage = new MainPage();
                 }
                 else
+                {
                     errorMsg.IsVisible = true;
+                    lbl.Text = res.Error;
+                }
             }); 
         }
     }

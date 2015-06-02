@@ -4,7 +4,7 @@
              x:Class="DriverApp.Pages.LoginPage">
   <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
     <ContentView x:Name="errorMsg" Padding="20" IsVisible="False">
-      <Label Text="User name or password is incorrect." TextColor="Red"></Label>
+      <Label x:Name="lbl" Text="User name or password is incorrect." TextColor="Red"></Label>
     </ContentView>
     
     <Entry Text="{Binding UserName}" Placeholder="User name"/>

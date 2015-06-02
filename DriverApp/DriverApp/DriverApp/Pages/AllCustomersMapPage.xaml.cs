@@ -27,11 +27,11 @@ namespace DriverApp.Pages
 
         private void SetupMap()
         {
-            var driverAddress = App.Locator.MainViewModel.Driver.Address;
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(driverAddress.Position, Xamarin.Forms.Maps.Distance.FromMiles(0.5)));
+            var driver = App.Locator.MainViewModel.Driver;
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(driver.CurrentLatitude, driver.CurrentLongitude), Xamarin.Forms.Maps.Distance.FromMiles(0.5)));
 
             map.Pins.Clear();
-            map.Pins.Add(new Pin { Label = "My Location", Address = driverAddress.AddressText, Position = driverAddress.Position });
+            map.Pins.Add(new Pin { Label = "My Location", Address = driver.CurrentAddress, Position = new Position(driver.CurrentLatitude, driver.CurrentLongitude) });
             foreach (var order in App.Locator.MainViewModel.Orders.Where(o=>!o.IsDelivered).ToList())
             {                
                 var pin = new Pin { Label = order.User.UserAddress.AddressText, Address = order.User.UserAddress.AddressText, Position = order.User.UserAddress.Position };

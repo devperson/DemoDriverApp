@@ -2,13 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using DriverApp.Models.Http;
 using Microsoft.AspNet.SignalR.Client;
 using Xamarin.Forms.Maps;
@@ -18,6 +11,7 @@ namespace DriverApp.Hub
 {
     public class HubClient : IHubClient
     {
+        bool isConnected = false;
         HubConnection connection;
         IHubProxy serverHub;
         public event EventHandler<OrderEventArgs> OnNewOrder;
@@ -32,16 +26,19 @@ namespace DriverApp.Hub
                     this.OnNewOrder(this, e);
             });
             await connection.Start();
+            isConnected = true;
         }
 
         public async void NotifyNewDriverLocation(MsgData data)
         {
-            await serverHub.Invoke("Notify_NewDriverLocation", new object[] { data });
+            if (isConnected)
+                await serverHub.Invoke("Notify_NewDriverLocation", new object[] { data });
         }
 
         public async void NotifyOrderCompleted(MsgData data)
         {
-            await serverHub.Invoke("Notify_OrderCompleted", new object[] { data });
+            if (isConnected)
+                await serverHub.Invoke("Notify_OrderCompleted", new object[] { data });
         }
     }
 

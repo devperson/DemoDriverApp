@@ -15,6 +15,7 @@ namespace DriverApp.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
+        bool isLocationListened;
         int _loadCount;
         public int LoadingCount
         {
@@ -76,15 +77,26 @@ namespace DriverApp.ViewModels
             this.Menu = new ObservableCollection<Menu>();
             this.Driver = new Driver();            
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            //{
+            //    Device.BeginInvokeOnMainThread(() => { 
+                   
+            //    });
+            //    return false;
+            //});
+
+
+        }
+
+        public void ListenForLocationChanges()
+        {
+            if (!isLocationListened)
             {
-                Device.BeginInvokeOnMainThread(() => { 
-                    var locator = CrossGeolocator.Current;
-                    locator.PositionChanged += locator_PositionChanged;
-                    locator.StartListening(15000, 10);
-                });
-                return false;
-            });
+                isLocationListened = true;
+                var locator = CrossGeolocator.Current;
+                locator.PositionChanged += locator_PositionChanged;
+                locator.StartListening(15000, 10);
+            }
         }
 
         public void OnDriverLogedIn()
@@ -150,11 +162,11 @@ namespace DriverApp.ViewModels
             });
         }
         
-        private void locator_PositionChanged(object sender, Geolocator.Plugin.Abstractions.PositionEventArgs e)
+        private async void locator_PositionChanged(object sender, Geolocator.Plugin.Abstractions.PositionEventArgs e)
         {
             var pos = new Position(e.Position.Latitude, e.Position.Longitude);
-            Device.BeginInvokeOnMainThread(async () =>
-            {
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
                 var geo = new Geocoder();                
                 var addresses = await geo.GetAddressesForPositionAsync(pos);
                 var addr = addresses.First();
@@ -177,7 +189,7 @@ namespace DriverApp.ViewModels
                         this.Notifier.NotifyNewDriverLocation(msgData);
                     }
                 }
-            });
+            //});
         }
 
         public void CompleteOrder()

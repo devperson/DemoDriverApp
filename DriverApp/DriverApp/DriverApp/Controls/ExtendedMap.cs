@@ -157,7 +157,7 @@ namespace DriverApp.Controls
         /// <param name="From">Origin Position</param>
         /// <param name="To">Destinate Position</param>
         /// <returns></returns>
-        public async Task CreateRoute(Position From, Position To)
+        public async Task<bool> CreateRoute(Position From, Position To)
         {
             var x = getMapsApiDirectionsUrl(From, To);
 
@@ -165,17 +165,24 @@ namespace DriverApp.Controls
 
             var lstPos = new List<Position>();
 
-            var e = r.routes[0].legs[0].steps;
-
-            foreach (var polys in e.Select(item => Decode(item.polyline.points)))
+            if (r.routes.Any())
             {
-                lstPos.AddRange(polys);
+                var e = r.routes[0].legs[0].steps;
+
+                foreach (var polys in e.Select(item => Decode(item.polyline.points)))
+                {
+                    lstPos.AddRange(polys);
+                }
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    polilenes.AddRange(lstPos);
+                });
+
+                return true;
             }
-
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                polilenes.AddRange(lstPos);
-            });
+            else
+                return false;
         }
 
         public double GetDistance(Position From, Position To, char unit = 'K')

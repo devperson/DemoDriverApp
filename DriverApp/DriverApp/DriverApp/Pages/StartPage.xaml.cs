@@ -21,6 +21,13 @@ namespace DriverApp
         {
             this.Navigation.PushAsync(new RegistrationPage());
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.MainViewModel.ListenForLocationChanges();
+        }
 	}
 }
 

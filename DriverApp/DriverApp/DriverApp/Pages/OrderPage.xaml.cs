@@ -70,6 +70,8 @@ namespace DriverApp.Pages
                 btn.Text = "View on Map";
                 btn.Clicked += ViewLocation_Clicked;
             }
+
+            App.Locator.MainViewModel.ShowAlert = this.DisplayAlert;
         }
 
         private void btnCall_Clicked(object sender, EventArgs e)

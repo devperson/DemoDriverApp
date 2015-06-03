@@ -80,11 +80,11 @@ namespace DriverApp.PCL
 
         public async void CompleteOrder(int orderId, Action<ResponseBase> onCompleted = null)
         {
-            var asyncResult = await ExecuteServiceMethod<ResponseBase>("api/driverapi/CompleteOrder?orderId=" + orderId, Method.PUT, content =>
+            var asyncResult = await ExecuteServiceMethod<ResponseBase>("api/driverapi/CompleteOrder", Method.POST, content =>
             {
                 var response = JsonConvert.DeserializeObject<ResponseBase>(content);
                 return response;
-            });
+            }, orderId );
             if (onCompleted != null)
                 onCompleted(asyncResult);
         }

@@ -28,7 +28,9 @@ namespace DriverApp.Pages
 
             var btnComplete = new ToolbarItem() { Text = "Complete" };
             btnComplete.Clicked += btnComplete_Clicked;
-            this.ToolbarItems.Add(btnComplete);     
+            this.ToolbarItems.Add(btnComplete);
+
+            App.Locator.MainViewModel.ShowAlert = this.DisplayAlert;
         }
 
         protected override void OnAppearing()

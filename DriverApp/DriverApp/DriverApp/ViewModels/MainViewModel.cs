@@ -198,14 +198,18 @@ namespace DriverApp.ViewModels
             this.WebService.CompleteOrder(this.ViewOrder.Id, (res) =>
             {
                 this.LoadingCount--;
+                if (res.Success)
+                {
+                    this.ViewOrder.IsDelivered = true;
+                    this.ViewOrder.RaisePropertyChanged("IsDelivered");
 
-                this.ViewOrder.IsDelivered = true;
-                this.ViewOrder.RaisePropertyChanged("IsDelivered");
-
-                var msgData = new MsgData();
-                msgData.Data = new { OrderId = this.ViewOrder.Id };
-                msgData.To.Add("Customer" + this.ViewOrder.User.Id);
-                this.Notifier.NotifyOrderCompleted(msgData);
+                    var msgData = new MsgData();
+                    msgData.Data = new { OrderId = this.ViewOrder.Id };
+                    msgData.To.Add("Customer" + this.ViewOrder.User.Id);
+                    this.Notifier.NotifyOrderCompleted(msgData);
+                }
+                else
+                    this.ShowError("Error on completing order. Please try later again.");
             });
         }
 

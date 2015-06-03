@@ -2,6 +2,7 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:DriverApp;assembly=DriverApp"
+                Title="Meals"
              x:Class="DriverApp.Pages.MealsPage">
   
     <ListView x:Name="listView" ItemsSource="{Binding Menu}"  VerticalOptions="Fill" HorizontalOptions="Fill" RowHeight="350">

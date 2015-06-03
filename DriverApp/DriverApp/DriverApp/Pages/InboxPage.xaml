@@ -4,6 +4,7 @@
              xmlns:con="clr-namespace:DriverApp.Controls.BindingConverters;assembly=DriverApp"
              xmlns:controls="clr-namespace:DriverApp.Controls;assembly=DriverApp"
              xmlns:local="clr-namespace:DriverApp;assembly=DriverApp"
+                Title="Orders"
              x:Class="DriverApp.Pages.InboxPage">
 
   <ContentPage.Resources>

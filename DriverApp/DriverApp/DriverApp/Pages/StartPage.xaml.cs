@@ -1,4 +1,5 @@
 ﻿using DriverApp.Pages;
+using Geolocator.Plugin;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;

@@ -8,3 +8,9 @@
 /DriverApp/DriverApp/DriverApp.iOS/bin
 /DriverApp/DriverApp/DriverApp.Droid/DriverApp.Droid.csproj.user
 /DriverApp/Components/Thumbs.db
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin/obj
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin/bin
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin.Abstractions/obj
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin.Abstractions/bin
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin.Android/obj
+/DriverApp/Components/Android.GeoLocation/Geolocator.Plugin.Android/bin

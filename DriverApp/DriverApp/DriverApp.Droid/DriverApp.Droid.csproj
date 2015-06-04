@@ -46,12 +46,6 @@
     <Reference Include="FormsViewGroup">
       <HintPath>..\..\packages\Xamarin.Forms.1.4.2.6359\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
     </Reference>
-    <Reference Include="Geolocator.Plugin">
-      <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.2\lib\MonoAndroid10\Geolocator.Plugin.dll</HintPath>
-    </Reference>
-    <Reference Include="Geolocator.Plugin.Abstractions">
-      <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.2\lib\MonoAndroid10\Geolocator.Plugin.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.22.0.0.0\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
     </Reference>
@@ -125,7 +119,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PluginsHelp\GeolocatorReadme.txt" />
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\drawable\img1.jpg" />
     <AndroidResource Include="Resources\drawable\img2.jpg" />
@@ -135,6 +128,14 @@
     <AndroidResource Include="Resources\drawable\car.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Components\Android.GeoLocation\Geolocator.Plugin.Abstractions\Geolocator.Plugin.Abstractions.csproj">
+      <Project>{6edb0588-ffc5-4ef5-8a99-9e241d0f878d}</Project>
+      <Name>Geolocator.Plugin.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\Android.GeoLocation\Geolocator.Plugin.Android\Geolocator.Plugin.Android.csproj">
+      <Project>{56a56f17-7de1-4ca1-9617-bf32e971ac84}</Project>
+      <Name>Geolocator.Plugin.Android</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DriverApp\DriverApp.csproj">
       <Name>DriverApp</Name>
       <Project>{37BAC139-180F-4EE4-8391-AA92BD58B017}</Project>

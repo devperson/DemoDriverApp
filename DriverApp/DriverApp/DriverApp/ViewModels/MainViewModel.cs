@@ -95,7 +95,7 @@ namespace DriverApp.ViewModels
                 isLocationListened = true;
                 var locator = CrossGeolocator.Current;
                 locator.PositionChanged += locator_PositionChanged;
-                locator.StartListening(15000, 10);
+                locator.StartListening(5000, 10);
             }
         }
 
@@ -161,35 +161,34 @@ namespace DriverApp.ViewModels
                 }
             });
         }
-        
+
         private async void locator_PositionChanged(object sender, Geolocator.Plugin.Abstractions.PositionEventArgs e)
         {
-            var pos = new Position(e.Position.Latitude, e.Position.Longitude);
-            //Device.BeginInvokeOnMainThread(async () =>
+            this.ShowError(string.Format("Got location: {0},{1}", e.Position.Latitude, e.Position.Longitude));
+
+            //var pos = new Position(e.Position.Latitude, e.Position.Longitude);
+            //var geo = new Geocoder();
+            //var addresses = await geo.GetAddressesForPositionAsync(pos);
+            //var addr = addresses.First();
+
+            //var isChanged = (this.Driver.CurrentAddress != addr || this.Driver.CurrentLatitude != pos.Latitude || this.Driver.CurrentLongitude != pos.Longitude);
+            //this.Driver.CurrentAddress = addr;
+            //this.Driver.CurrentLatitude = pos.Latitude;
+            //this.Driver.CurrentLongitude = pos.Longitude;
+
+            //if (isChanged)
             //{
-                var geo = new Geocoder();                
-                var addresses = await geo.GetAddressesForPositionAsync(pos);
-                var addr = addresses.First();
+            //    if (this.Driver.Id > 0)
+            //        this.WebService.UpdateDriverLocation(new { UserId = this.Driver.Id, Position = new Position(this.Driver.CurrentLatitude, this.Driver.CurrentLongitude), Address = this.Driver.CurrentAddress });
 
-                var isChanged = (this.Driver.CurrentAddress != addr || this.Driver.CurrentLatitude != pos.Latitude || this.Driver.CurrentLongitude != pos.Longitude);
-                this.Driver.CurrentAddress = addr;
-                this.Driver.CurrentLatitude = pos.Latitude;
-                this.Driver.CurrentLongitude = pos.Longitude;
-
-                if (isChanged)
-                {
-                    if (this.Driver.Id > 0)
-                        this.WebService.UpdateDriverLocation(new { UserId = this.Driver.Id, Position = new Position(this.Driver.CurrentLatitude, this.Driver.CurrentLongitude), Address = this.Driver.CurrentAddress });
-
-                    if (this.Orders.Where(o => !o.IsDelivered).Any()) //Has any customers.
-                    {
-                        var msgData = new MsgData();
-                        msgData.Data = new { DriverId = this.Driver.Id, Position = pos };
-                        msgData.To = this.Orders.Where(o => !o.IsDelivered).Select(o => "Customer" + o.User.Id).ToList();
-                        this.Notifier.NotifyNewDriverLocation(msgData);
-                    }
-                }
-            //});
+            //    if (this.Orders.Where(o => !o.IsDelivered).Any()) //Has any customers.
+            //    {
+            //        var msgData = new MsgData();
+            //        msgData.Data = new { DriverId = this.Driver.Id, Position = pos };
+            //        msgData.To = this.Orders.Where(o => !o.IsDelivered).Select(o => "Customer" + o.User.Id).ToList();
+            //        this.Notifier.NotifyNewDriverLocation(msgData);
+            //    }
+            //}
         }
 
         public void CompleteOrder()

@@ -7,13 +7,12 @@ namespace DriverApp
 	{
 		public BasePage ()
 		{
+            App.Locator.MainViewModel.ShowAlert = this.DisplayAlert;
 		}
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            App.Locator.MainViewModel.ShowAlert = this.DisplayAlert;
         }
 	}
 }

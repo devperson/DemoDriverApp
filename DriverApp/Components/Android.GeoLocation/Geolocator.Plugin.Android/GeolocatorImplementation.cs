@@ -23,7 +23,8 @@ namespace Geolocator.Plugin
         private IGoogleApiClient _googleAPI;
         LocationRequest locRequest;
         bool isListen = false;
-
+        bool isGettingLastPos = false;
+        TaskCompletionSource<Position> getPosisionTsc;
         public GeolocatorImplementation()
         {
             if (IsGooglePlayServicesInstalled())
@@ -76,36 +77,49 @@ namespace Geolocator.Plugin
         }
 
         
-        public System.Threading.Tasks.Task<Position> GetPositionAsync(int timeout = Timeout.Infinite, System.Threading.CancellationToken? token = null, bool includeHeading = false)
+        public Task<Position> GetPositionAsync(int timeout = Timeout.Infinite, CancellationToken? token = null, bool includeHeading = false)
         {
-            throw new NotImplementedException();
+            if (!_googleAPI.IsConnected)
+                this.connectGoogleAPI();
+
+            isGettingLastPos = true;
+            getPosisionTsc = new TaskCompletionSource<Position>();
+            return getPosisionTsc.Task;            
         }
         
 
         public void StartListening(int minTime, double minDistance, bool includeHeading = false)
         {
-            if (!_googleAPI.IsConnected)
-            {
-                isListen = true;
+            if (!_googleAPI.IsConnected)            
                 this.connectGoogleAPI();
-            }
+            
+            isGettingLastPos = false;
+            isListen = true;
         }
 
         public void StopListening()
         {
             if (_googleAPI.IsConnected)
-            {
-                isListen = false;
+            {                
                 LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPI, this);                
                 disconnectGoogleAPI();
             }
+            isListen = false;
         }
 
         public void OnConnected(Bundle connectionHint)
         {
-            //var location = LocationServices.FusedLocationApi.GetLastLocation(_googleAPI);
-            
-            LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPI, locRequest, this);            
+            if (isGettingLastPos)
+            {
+                var location = LocationServices.FusedLocationApi.GetLastLocation(_googleAPI);
+                getPosisionTsc.TrySetResult(new Position { Latitude = location.Latitude, Longitude = location.Longitude });
+
+                if (_googleAPI.IsConnected)
+                    this.disconnectGoogleAPI();
+            }
+
+            if (isListen)
+                LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPI, locRequest, this);            
         }
 
         public void OnConnectionSuspended(int cause){}

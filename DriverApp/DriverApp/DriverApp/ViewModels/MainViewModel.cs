@@ -15,6 +15,7 @@ namespace DriverApp.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
+        #region Properties
         bool isLocationListened;
         int _loadCount;
         public int LoadingCount
@@ -65,7 +66,8 @@ namespace DriverApp.ViewModels
                 return _ntf;
             }
         }
-        
+        #endregion
+
         public MainViewModel()
         {
             if (App.IsDevice)
@@ -76,16 +78,6 @@ namespace DriverApp.ViewModels
             this.Orders = new ObservableCollection<Order>();
             this.Menu = new ObservableCollection<Menu>();
             this.Driver = new Driver();            
-
-            //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            //{
-            //    Device.BeginInvokeOnMainThread(() => { 
-                   
-            //    });
-            //    return false;
-            //});
-
-
         }
 
         public void ListenForLocationChanges()
@@ -157,7 +149,7 @@ namespace DriverApp.ViewModels
                 {                    
                     this.ShowError("Error on getting inventory data. " + response.Error);
                 }
-                
+
                 int lastOrderId = this.Orders.Any() ? this.Orders.Last().Id : 0;
                 this.WebService.GetOrders(this.Driver.Id, lastOrderId, (res) =>
                 {
